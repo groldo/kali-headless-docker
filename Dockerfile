@@ -1,5 +1,5 @@
 # TODO: change permitrootlogin option in sshd_config
-FROM kalilinux/kali-linux-docker
+FROM kalilinux/kali-rolling
 
 RUN apt update
 RUN apt upgrade -y
@@ -7,9 +7,10 @@ RUN apt install -y xvfb \
                     x11vnc \
                     i3 \
                     ssh \
+                    wget \
                     locales
 
-RUN wget https://www.torproject.org/dist/torbrowser/8.5.4/tor-browser-linux64-8.5.4_en-US.tar.xz
+RUN wget https://dist.torproject.org/torbrowser/14.0.4/tor-browser-linux-x86_64-14.0.4.tar.xz
 
 RUN sed -i -e 's/#PermitRootLogin prohibit-password/PermitRootLogin yes/' /etc/ssh/sshd_config
 
@@ -23,6 +24,5 @@ ENV LC_ALL en_US.UTF-8
 RUN echo "root:root" | chpasswd
 
 COPY entrypoint.sh /entrypoint.sh
-
 
 ENTRYPOINT ["/entrypoint.sh"]
