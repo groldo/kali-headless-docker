@@ -7,7 +7,7 @@ docker kill kali
 docker container rm kali
 
 # Build new container
-docker pull kalilinux/kali-linux-docker:latest
+docker pull kalilinux/kali-rolling
 docker build -t headless-kali .
 docker run --name kali $ARGS -d -p 22:22 headless-kali
 
